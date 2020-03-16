@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 import ProductForm from "./forms/ProductForm";
+import CouponForm from "./forms/CouponForm";
 import ProductActions from "../actions/productActions";
+import CouponActions from "../actions/couponActions";
 
 class ModalForm extends React.Component {
   constructor(props) {
@@ -16,7 +18,14 @@ class ModalForm extends React.Component {
   }
 
   handleDelete() {
+    if (this.props.type == "Product") {
       ProductActions.deleteProduct(this.props.id);
+    } else if (this.props.type == "Coupon") {
+      CouponActions.deleteCoupon(this.props.code);
+    }
+    // } else if (this.state.type == "User") {
+    // } else if (this.state.type == "Order") {
+    this.toggle();
   }
 
   toggle() {
@@ -73,11 +82,19 @@ class ModalForm extends React.Component {
         </Button>
       );
       modal_title = "Edit " + this.props.type;
-      content = (
-        <ModalBody>
-          <ProductForm toggle={this.toggle} item={this.props.item} />
-        </ModalBody>
-      );
+      if (this.props.type == "Product") {
+        content = (
+          <ModalBody>
+            <ProductForm toggle={this.toggle} item={this.props.item} />
+          </ModalBody>
+        );
+      } else if (this.props.type == "Coupon") {
+        content = (
+          <ModalBody>
+            <CouponForm toggle={this.toggle} item={this.props.item} />
+          </ModalBody>
+        );
+      }
     } else {
       button = (
         <Button
@@ -89,11 +106,26 @@ class ModalForm extends React.Component {
         </Button>
       );
       modal_title = "Add New " + this.props.type;
-      content = (
-        <ModalBody>
-          <ProductForm toggle={this.toggle} item={this.props.item} />
-        </ModalBody>
-      );
+      if (this.props.type === "Product") {
+        content = (
+          <ModalBody>
+            <ProductForm
+              toggle={this.toggle}
+              item={this.props.item}
+            />
+          </ModalBody>
+        );
+      } else if (this.props.type === "Coupon") {
+        content = (
+          <ModalBody>
+            <CouponForm
+              toggle={this.toggle}
+              item={this.props.item}
+              new={true}
+            />
+          </ModalBody>
+        );
+      }
     }
 
     return (
@@ -114,6 +146,7 @@ ModalForm.propTypes = {
   item: PropTypes.object,
   buttonLabel: PropTypes.string.isRequired,
   id: PropTypes.number,
+  code: PropTypes.string,
   type: PropTypes.string
 };
 

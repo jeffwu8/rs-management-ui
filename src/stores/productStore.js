@@ -138,7 +138,7 @@ Dispatcher.register(action => {
       const product = action.data;
       const productList = _productStore.product.productList;
       const index = productList.findIndex(
-        ({ product_id }) => product_id === product.product_id
+        ({ id }) => id === product.id
       );
       productList[index] = product;
 
@@ -167,7 +167,7 @@ Dispatcher.register(action => {
       const productList = _productStore.product.productList;
 
       _productStore.product.productList = productList.filter(
-        ({ product_id }) => product_id !== delete_id
+        ({ id }) => id !== delete_id
       );
       _productStore.product.deleteState.success = true;
       ProductStore.emitChange();

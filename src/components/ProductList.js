@@ -29,9 +29,9 @@ export class ProductList extends React.Component {
 
     if (
       this.props.product.readState.pending
-      // || this.props.product.createState.pending ||
-      // this.props.product.updateState.pending ||
-      // this.props.product.deleteState.pending
+      || this.props.product.createState.pending
+      || this.props.product.updateState.pending
+      || this.props.product.deleteState.pending
     ) {
       content = (
         <div className="d-flex justify-content-center">
@@ -44,9 +44,9 @@ export class ProductList extends React.Component {
 
     if (
       this.props.product.readState.success
-      // || this.props.product.createState.success ||
-      // this.props.product.updateState.success ||
-      // this.props.product.deleteState.success
+      || this.props.product.createState.success
+      || this.props.product.updateState.success
+      || this.props.product.deleteState.success
     ) {
       content = (
         <table className="table">
@@ -64,13 +64,13 @@ export class ProductList extends React.Component {
       );
     }
 
-    // if (this.props.product.createState.failure) {
-    //   content = (
-    //     <div className="alert alert-danger" role="alert">
-    //       Error while adding products!
-    //     </div>
-    //   );
-    // }
+    if (this.props.product.createState.failure) {
+      content = (
+        <div className="alert alert-danger" role="alert">
+          Error while adding products!
+        </div>
+      );
+    }
 
     if (this.props.product.readState.failure) {
       content = (
@@ -80,21 +80,21 @@ export class ProductList extends React.Component {
       );
     }
 
-    // if (this.props.product.updateState.failure) {
-    //   content = (
-    //     <div className="alert alert-danger" role="alert">
-    //       Error while updating products!
-    //     </div>
-    //   );
-    // }
+    if (this.props.product.updateState.failure) {
+      content = (
+        <div className="alert alert-danger" role="alert">
+          Error while updating products!
+        </div>
+      );
+    }
 
-    // if (this.props.product.deleteState.failure) {
-    //   content = (
-    //     <div className="alert alert-danger" role="alert">
-    //       Error while deleting products!
-    //     </div>
-    //   );
-    // }
+    if (this.props.product.deleteState.failure) {
+      content = (
+        <div className="alert alert-danger" role="alert">
+          Error while deleting products!
+        </div>
+      );
+    }
 
     return (
       <div>
